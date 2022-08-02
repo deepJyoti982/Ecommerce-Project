@@ -92,7 +92,7 @@ const userRegister = async (req, res) => {
         return res.status(201).send({ status: true, msg: "User registration successfull", data: creatUser })
     }
     catch (error) {
-        res.status( 400 ).send({ msg: error.message })
+        res.status( 500 ).send({ msg: error.message })
     }
 }
 
@@ -210,7 +210,7 @@ const updateUserProfile = async (req,res) => {
         
         if(updateFilesData && updateFilesData.length > 0) {
 
-            let uploadedFileURL = await uploadFile.uploadFile(updateFilesData[0])
+            let uploadedFileURL = await aws.uploadFile(updateFilesData[0])
             updateObj.profileImage = uploadedFileURL;
         }
 

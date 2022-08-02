@@ -1,4 +1,3 @@
-const { ApiGatewayManagementApi } = require("aws-sdk");
 const cartModel = require("../model/cartModel");
 const productModel = require("../model/productModel")
 const {
@@ -21,7 +20,7 @@ const createCart = async (req, res) => {
         // console.log(userIdParams,userIdToken)
 
 
-        if (isEmpty(userIdParams)) return res.status(400).send({ status: false, message: "Put user Id in params" })
+        // if (isEmpty(userIdParams)) return res.status(400).send({ status: false, message: "Put user Id in params" })
         if (!isValidObjectId(userIdParams)) return res.status(400).send({ status: false, message: "User Id in params is invalid" })
 
 

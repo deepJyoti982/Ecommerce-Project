@@ -17,7 +17,7 @@ router.put("/user/:userId/profile",authenticate, userController.updateUserProfil
 
 //--------------------------------🐱‍🏍🐱‍🏍Product Router🐱‍🏍🐱‍🏍--------------------------------
 router.post("/products", productController.createProduct)
-router.get("/products", productController.getProducts) //need some modification
+router.get("/products", productController.getProducts)
 router.get("/products/:productId",productController.getProductsById)
 router.put("/products/:productId", productController.updateProductById)
 router.delete("/products/:productId",productController.deleteProductById)

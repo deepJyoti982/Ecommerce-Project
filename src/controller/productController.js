@@ -58,7 +58,7 @@ const createProduct = async(req,res) => {
         }
 
         if(!isEmpty(availableSizes)) {
-            let tempSizes = availableSizes.split(",")//['xl','l','s']
+            let tempSizes = availableSizes.split(",")
             // console.log(availableSizes)
             // console.log(tempSizes)
             for(var i in tempSizes) {
@@ -163,14 +163,14 @@ const getProducts = async(req,res) => {
 
         const srt = {}
         if(priceSort) {
-            if(priceSort == 1 || 0) {
-                (priceSort > 0) ? srt.price = 1 : srt.price = 0
-            }else return res.status( 400 ).send({status: false,message: "priceSort always should be 0 or 1"})
+            if(priceSort == 1 || priceSort == -1) {
+                (priceSort > 0) ? srt.price = 1 : srt.price = -1
+            }else return res.status( 400 ).send({status: false,message: "priceSort always should be '1' or '-1'"})
         }
 
         const findProduct = await productModel.find(filterObj).sort(srt)
 
-        if(!findProduct) return res.status( 404 ).send({status: false,message: "No data match with your filter!"})
+        if(findProduct.length == 0) return res.status( 404 ).send({status: false,message: "No data match with your filter!"})
         res.status( 200 ).send({status: true,data: findProduct})
     }
     catch(error) {
@@ -274,10 +274,9 @@ const updateProductById = async(req,res) => {
         if(currencyFormat) return res.status( 400 ).send({status: false, message: "you cannot change or modify currency format"})
 
         if(isFreeShipping) {
-            updateData.isFreeShipping = JSON.parse(isFreeShipping)
 // console.log(isFreeShipping)
-            if(updateData.isFreeShipping !== true || false) return res.status(400).send({status: false,message: "isFreeShipping value should be true or false"})
-            (updateData.isFreeShipping !== false) ? updateObj.isFreeShipping = true : updateObj.isFreeShipping = false
+            if(updateData.isFreeShipping == 'true' || updateData.isFreeShipping == 'false') return res.status(400).send({status: false,message: "isFreeShipping value should be true or false"})
+            (updateData.isFreeShipping !== 'false') ? updateObj.isFreeShipping = true : updateObj.isFreeShipping = false
         }
 
         if(files && files.length > 0) {

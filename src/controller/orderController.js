@@ -24,8 +24,7 @@ const createOrder = async(req,res) => {
         if(!isValidObjectId(cartId)) return res.status( 400 ).send({status: false, message: "Cart Id is invalid"})
         
         if(!isEmpty(cancellable)) {
-// console.log(cancellable)
-            if(cancellable !== ('false' || 'true')) return res.status( 400 ).send({
+            if(!(cancellable == 'true' || cancellable == 'false')) return res.status( 400 ).send({
                 status: false,
                 message: "cancellable should be 'true' or 'false'"
             })
